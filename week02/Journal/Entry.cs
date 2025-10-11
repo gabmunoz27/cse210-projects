@@ -23,7 +23,7 @@ public class Entry
 
     public string GetEntryAsString()
     {
-        // Guardamos los datos separados por “|” para evitar problemas con comas
+        
         return $"{_date}|{_prompt}|{_response}";
     }
 
