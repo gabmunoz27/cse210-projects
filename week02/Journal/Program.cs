@@ -1,5 +1,11 @@
 using System;
 
+// Added a keyword search feature (option 6) that allows the user to search
+// through all journal entries and display only those whose prompt or response
+// contains a specific word or phrase. The search is case-insensitive and is
+// handled through the Journal.Search() method and the Entry.ContainsKeyword()
+// method, keeping responsibilities correctly separated between classes.
+
 class Program
 {
     static void Main(string[] args)
@@ -8,14 +14,15 @@ class Program
         PromptGenerator promptGenerator = new PromptGenerator();
 
         string choice = "";
-        while (choice != "5")
+        while (choice != "6")
         {
             Console.WriteLine("Journal Menu:");
             Console.WriteLine("1. Write a new entry");
             Console.WriteLine("2. Display the journal");
             Console.WriteLine("3. Save the journal to a file");
             Console.WriteLine("4. Load the journal from a file");
-            Console.WriteLine("5. Quit");
+            Console.WriteLine("5. Search entries by keyword");
+            Console.WriteLine("6. Quit");
             Console.Write("What would you like to do? ");
             choice = Console.ReadLine();
 
@@ -50,6 +57,12 @@ class Program
                     break;
 
                 case "5":
+                    Console.Write("Enter keyword to search: ");
+                    string keyword = Console.ReadLine();
+                    journal.Search(keyword);
+                    break;
+
+                case "6":
                     Console.WriteLine("Goodbye!");
                     break;
 

@@ -25,6 +25,32 @@ public class Journal
         }
     }
 
+    public void Search(string keyword)
+    {
+        List<Entry> results = new List<Entry>();
+
+        foreach (Entry entry in _entries)
+        {
+            if (entry.ContainsKeyword(keyword))
+            {
+                results.Add(entry);
+            }
+        }
+
+        if (results.Count == 0)
+        {
+            Console.WriteLine($"No entries found containing \"{keyword}\".\n");
+        }
+        else
+        {
+            Console.WriteLine($"Found {results.Count} entry(ies) containing \"{keyword}\":\n");
+            foreach (Entry entry in results)
+            {
+                entry.Display();
+            }
+        }
+    }
+
     public void SaveToFile(string filename)
     {
         using (StreamWriter outputFile = new StreamWriter(filename))

@@ -2,9 +2,9 @@ using System;
 
 public class Entry
 {
-    public string _date;
-    public string _prompt;
-    public string _response;
+    private string _date;
+    private string _prompt;
+    private string _response;
 
     public Entry(string date, string prompt, string response)
     {
@@ -23,7 +23,6 @@ public class Entry
 
     public string GetEntryAsString()
     {
-        
         return $"{_date}|{_prompt}|{_response}";
     }
 
@@ -35,5 +34,11 @@ public class Entry
             return null;
         }
         return new Entry(parts[0], parts[1], parts[2]);
+    }
+
+    public bool ContainsKeyword(string keyword)
+    {
+        return _response.Contains(keyword, StringComparison.OrdinalIgnoreCase) ||
+               _prompt.Contains(keyword, StringComparison.OrdinalIgnoreCase);
     }
 }
