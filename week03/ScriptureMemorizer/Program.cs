@@ -1,41 +1,56 @@
+// CSE 210 - Week 03: Scripture Memorizer
+// ============================================================
+//
+// EXCEEDS CORE REQUIREMENTS:
+//
+// 1. SCRIPTURE LIBRARY: Instead of a single hardcoded scripture, the program
+//    uses a ScriptureLibrary class that stores multiple scriptures and picks
+//    one at random each time the program runs. This simulates a real memorization
+//    tool where the user gets a different challenge each session.
+//
+// 2. SMART WORD HIDING: Scripture.HideRandomWords() only selects from words
+//    that are NOT already hidden, guaranteeing consistent progress every round
+//    and preventing wasted turns on already-hidden words.
+//
+// 3. VERSE RANGE SUPPORT: Reference supports both "John 3:16" (single verse)
+//    and "Proverbs 3:5-6" (verse range) via constructor overloading.
+//
+// ============================================================
+ 
 using System;
-
+ 
 class Program
 {
     static void Main(string[] args)
     {
-        // 1. Initialize the scripture object
-        
-        // Example Reference: handling a verse range
-        Reference reference = new Reference("Ether", 12, 27); 
-        string text = "And if men come unto me I will show unto them their weakness. I give unto men weakness that they may be humble; and my grace is sufficient for all men that humble themselves before me; for if they humble themselves before me, and have faith in me, then will I make weak things become strong unto them.";
-        
-        Scripture scripture = new Scripture(reference, text);
-
+        // Use the library to pick a random scripture each session
+        ScriptureLibrary library = new ScriptureLibrary();
+        Scripture scripture = library.GetRandomScripture();
+ 
         string userInput = "";
-        
+ 
         // Main Loop: Continues until user types 'quit' or scripture is completely hidden
         while (userInput.ToLower() != "quit" && !scripture.IsCompletelyHidden())
         {
-            // 2. Clear the console and display the scripture
+            // Clear the console and display the scripture
             Console.Clear();
             Console.WriteLine(scripture.GetDisplayText());
-
-            // 3. Prompt the user
+ 
+            // Prompt the user
             Console.WriteLine("\nPress Enter to continue or type 'quit' to finish:");
-            userInput = Console.ReadLine();
-
-            // 4. Hide words if the user pressed Enter
+            userInput = Console.ReadLine() ?? "";
+ 
+            // Hide words if the user pressed Enter
             if (userInput == "")
             {
                 // Hides 3 random unhidden words each time
-                scripture.HideRandomWords(3); 
+                scripture.HideRandomWords(3);
             }
         }
-        
+ 
         // Final Display (showing all words hidden, if applicable)
         Console.Clear();
         Console.WriteLine(scripture.GetDisplayText());
-        Console.WriteLine("\nWell done.");
+        Console.WriteLine("\nWell done!");
     }
 }
